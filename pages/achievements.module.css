@@ -1,0 +1,122 @@
+.main {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+.black {
+    background-color: black;
+    margin: 0;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.frame31 {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 246px;
+    height: 238px;
+    background-color: rgb(28, 1, 89);
+    gap: 17px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 30px;
+    
+}
+
+.text {
+    font-size: 20px;
+    font-family: 'almarai';
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+.frame33 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.frame32 {
+    flex-direction: row;
+    background-color: orange;
+    width: 222px;
+    height: 18px;
+    z-index: 2;
+}
+
+.image {
+    height: 111px;
+    width: 111px;
+}
+
+.page{
+    background: url(http://localhost:8000/image/bg.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    gap:50px
+}
+
+.achievement{
+    display: flex;
+    background-color: rgba(14, 15, 21, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    width: 246px;
+    height: 238px;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    flex-direction: column;
+}
+
+.mainBody{
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    gap: 10px;
+    
+}
+
+.progressBar{
+    color: #FF9A1C;
+    background-color: #FF9A1C ;
+    width: 222px;
+    height: 18px;
+    border: none;
+    border-radius: 4px;
+    
+}
+
+.achievementName{
+    padding: 0;
+    margin: 15px;
+    color: white;
+}
+
+.progressValue{
+    margin: 0px;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width:80%;
+    gap: 30px;
+}
+
