@@ -1,53 +1,14 @@
 "use client"
-<<<<<<< HEAD
-=======
 {/* <Image loader={() => `http://localhost:3001/image/logo.png`} src={"http://localhost:3001/image/logo.png"} alt="Logo" width={47} height={47} /> */}
 {/* <Image loader={() => `http://localhost:3001/image/Illustration_main.png`} src={"http://localhost:3001/image/Illustration_main.png"} alt="Gaming Illustration" width={590} height={707} /> */}
 {/* <Image loader={() => `http://localhost:3001/image/achivemens.png`} src={"http://localhost:3001/image/achivemens.png"} alt="Gaming Illustration" width={461} height={337} /> */}
 {/* <Image loader={() => `http://localhost:3001/image/main_message.png`} src={"http://localhost:3001/image/main_message.png"} alt="Gaming Illustration" width={717} height={247} /> */}
->>>>>>> f34a11b (	new file:   .eslintrc.json)
 
 import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
-<<<<<<< HEAD
-    <main className={styles.main}>
-      <div className={styles.black_main}>
-        <div className={styles.header_main}>
-          <div className={styles.frame3}>
-            <Image loader={() => `http://localhost:3001/image/logo.png`} src={"http://localhost:3001/image/logo.png"} alt="Logo" width={47} height={47} />
-            <div className={styles.joypad}>Joypad</div>
-          </div>
-          <div className={styles.frame4}>
-            <a href="/" className={styles.home}>Home</a>
-            <a href="/chat" className={styles.chat}>Chat</a>
-            <button className={styles.startButton}>Start</button>
-          </div>
-        </div>
-        <div className={styles.frame6}>
-          <div className={styles.frame7}>
-            <h1 className={styles.heading}>Unlock the Future of Gaming</h1>
-            <p className={styles.subheading}>Відкрийте для себе найкращу ігрову платформу</p>
-            <div className={styles.buttonContainer}>
-              <button className={styles.joinButton}>Приєднуйся зараз</button>
-            </div>
-          </div>
-          <div className={styles.frame8}>
-            <div className={styles.frame10}>
-              <button className={styles.getStartedButton}>Get Started</button>
-            </div>
-            <div className={styles.frame11}></div>
-            <div className={styles.frame12}></div>
-            <div className={styles.imageContainer}>
-              <Image loader={() => `http://localhost:3001/image/Illustration_main.png`} src={"http://localhost:3001/image/Illustration_main.png"} alt="Gaming Illustration" width={590} height={707} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-=======
     <div className={styles.mainBody}>
       <header className={styles.header}>
         <div className={styles.headerLogo}>
@@ -58,7 +19,7 @@ export default function Home() {
         <div className={styles.headerButtons}>
 
           <button className={styles.transperentButton}>Home</button>
-          <button className={styles.transperentButton}>Chat</button>
+          <button className={styles.transperentButton} onClick={()=>{window.location.href="/chat/"}}>Chat</button>
           <button className={styles.whiteButton}>Start</button>
 
         </div>
@@ -154,6 +115,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
->>>>>>> f34a11b (	new file:   .eslintrc.json)
   );
 }

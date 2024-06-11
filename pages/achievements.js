@@ -1,28 +1,4 @@
 import Image from "next/image";
-<<<<<<< HEAD
-import 'bootstrap/dist/css/bootstrap.css';
-
-export default function Achievements() {
-  return (
-    <main>
-        
-        <div>
-            <h1>JOYPAD</h1>
-            <button>Home</button>
-            <button>Chat</button>
-        </div>
-        <div>
-            <div>
-                <div class="row row-cols-5">
-
-                </div>
-            </div>
-        </div>
-            
-    </main>
-  );
-}
-=======
 // import 'bootstrap/dist/css/bootstrap.css';
 import styles2 from "./achievements.module.css";
 import styles from "../app/page.module.css";
@@ -35,16 +11,16 @@ export default function Achievements() {
 
   useEffect(() => {
     console.log("FETCH -1")
-    if (!token || token == null || token == "undefined"){
+    if (!token || token == null || token == "undefined") {
       window.location.href = "http://localhost:8000/user/auth"
     }
     console.log("FETCH 0")
-    if(!data){
+    if (!data) {
       console.log("FETCH 1")
       fetch("http://localhost:8000/achievements/user/", {
         method: "GET",
-        headers:{
-          token:token
+        headers: {
+          token: token
         }
       }).then((response) => {
         console.log("FETCH 2")
@@ -77,7 +53,7 @@ export default function Achievements() {
   //       console.log("THIS IS DATA", resp)
   //     })
   // }
-  
+
 
   // console.log("FETCHED ACHIEVEMENTS")
   return (
@@ -94,17 +70,17 @@ export default function Achievements() {
         </div>
       </header>
       <main className={styles2.mainBody}>
-        {data && 
-          <div className = {styles2.content}>
-            {data.map((res,idx)=> {
-              return(
+        {data &&
+          <div className={styles2.content}>
+            {data.map((res, idx) => {
+              return (
                 <div className={styles2.achievement} key={idx}>
                   <h3 className={styles2.achievementName}> {res.name} </h3>
                   <div>
-                    <Image loader={() => `http://localhost:8000/image/message_icon_achievements.png`} src={"http://localhost:8000/image/message_icon_achievements.png"} width={111} height={111} />  
+                    <Image loader={() => `http://localhost:8000/image/message_icon_achievements.png`} src={"http://localhost:8000/image/message_icon_achievements.png"} width={111} height={111} />
                   </div>
-                  <hr className={styles2.progressBar}/>
-                  <h4 className={styles2.progressValue}> 77/100 </h4>   
+                  <hr className={styles2.progressBar} />
+                  <h4 className={styles2.progressValue}> 77/100 </h4>
                 </div>
               )
             })}
@@ -123,4 +99,3 @@ export default function Achievements() {
           <hr className={styles2.progressBar}/>
           <h4 className={styles2.progressValue}> 77/100 </h4>
     </div> */}
->>>>>>> f34a11b (	new file:   .eslintrc.json)

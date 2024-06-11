@@ -42,7 +42,7 @@ export default function Home() {
             <div className="headerButtons">
 
               <button className="transperentButton">Home</button>
-              <button className="transperentButton">Chat</button>
+              <button className="transperentButton" onClick={()=>{window.location.href="/chat/"}}>Chat</button>
 
             </div>
         </header>
