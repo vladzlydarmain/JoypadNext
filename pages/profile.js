@@ -135,14 +135,14 @@ export default function Home() {
     return (
         <div className={styles.page}>
             <header>
-                <div className={styles.headerLogo}>
+                <div className={styles.headerLogo} onClick={()=>{window.location.href = "/"}}>
                   <img src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} />
                   <h3 className={styles.logo}>Joypad</h3>
                 </div>
         
                 <div className={styles.headerButtons}>
         
-                  <button className={styles.transperentButton}>Home</button>
+                  <button className={styles.transperentButton} onClick={()=>{window.location.href = "/profile/"}}>Home</button>
                   <button className={styles.transperentButton} onClick={()=>{window.location.href="/chat/"}}>Chat</button>
         
                 </div>

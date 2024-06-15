@@ -87,8 +87,6 @@
     display: flex;
     align-content: center;
     flex-direction: row;
-    gap: 10px;
-    
 }
 
 .progressBar{
@@ -120,3 +118,84 @@
     gap: 30px;
 }
 
+/* progress.greenProgress{
+    color:  lime;
+    border: none;
+    background-color: green;
+}
+
+.yellowProgress{
+    color:  #FF9A1C;
+    border: none;
+}
+
+.my-progress{
+    background: green;
+} */
+
+.progress1::-webkit-progress-value {
+    background-color: lime;
+    height: 15px;
+    border-radius: 4px;
+  }
+
+.progress1[value] {
+    color: lime;
+    background-color: lime;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.progress2::-webkit-progress-value {
+    background-color: #FF9A1C;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.progress2[value] {
+    color: #FF9A1C;
+    background-color: #FF9A1C;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 20px;
+    background: rgba(27, 22, 42, 0.63);
+    border-radius: 15px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    width: 228px;
+}
+  
+
+.progress1::-webkit-progress-value {
+    background-color: lime;
+    height: 15px;
+    border-radius: 4px;
+  }
+
+.progress1[value] {
+  color: lime;
+  background-color: lime;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.progress2::-webkit-progress-value {
+    background-color: #FF9A1C;
+    height: 15px;
+    border-radius: 4px;
+  }
+
+.progress2[value] {
+  color: #FF9A1C;
+  background-color: #FF9A1C;
+  height: 15px;
+  border-radius: 4px;
+}

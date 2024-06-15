@@ -403,10 +403,12 @@ export default function Chat() {
                                     )
                                 })}
                             </div>
-                            <button className={styles.achievementsButton}>
-                                <img src="http://localhost:8000/image/ranking2.png"/>
-                                Achievements
-                            </button>
+                            {groupInfo && 
+                                <button className={styles.achievementsButton} onClick={()=>{window.location.href = `/achievements/${groupInfo.id}`}}>
+                                    <img src="http://localhost:8000/image/ranking2.png"/>
+                                    Achievements
+                                </button>
+                            }
                             <div className={styles.info}>
                                 <img src="http://localhost:8000/image/ranking2.png"/>
                                 <div>

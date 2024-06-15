@@ -1,17 +1,21 @@
 import Image from "next/image";
 // import 'bootstrap/dist/css/bootstrap.css';
 // import styles3 from '../app/globals./css'
-import styles2 from "./achievements.module.css";
-import styles from "../app/page.module.css";
+import styles2 from "../achievements.module.css";
+import styles from "@/app/page.module.css";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export default function Achievements() {
   const [data, setData] = useState()
   const [stats, setStats] = useState()
-  const [filter, setFilter] = useState([])
-
   const token = Cookies.get("token")
+
+  const router = useRouter()
+
+  const id = router.query.id 
+
 
   useEffect(() => {
     console.log("FETCH -1")
@@ -19,59 +23,48 @@ export default function Achievements() {
       window.location.href = "http://localhost:8000/user/auth"
     }
     console.log("FETCH 0")
-    if (!data) {
-      console.log("FETCH 1")
-      fetch(`http://localhost:8000/achievements/user/`, {
-        method: "GET",
-        headers: {
-          token: token
+    if (id || id != undefined) {
+      if (!data) {
+        console.log("THIS IS ID", id)
+        console.log("FETCH 1")
+        fetch(`http://localhost:8000/achievements/group/all`, {
+          method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then((response) => {
+          console.log("FETCH 2")
+          return response.json()
+        }).then((resp) => {
+          console.log("FETCH 3")
+          console.log(resp)
+          setData(resp.message)
+          console.log("THIS IS DATA", data)
+        })
+        console.log('THIS IS FETCH DATA')
+        if (!stats){
+          fetch(`http://localhost:8000/group/stats/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then((respons) => {
+            console.log("FETCH 2")
+            return respons.json()
+          }).then((rep) => {
+            console.log("FETCH 3")
+            console.log(rep)
+            setStats(rep.message)
+            console.log("THIS IS STATS", stats)
+          })
         }
-      }).then((response) => {
-        console.log("FETCH 2")
-        return response.json()
-      }).then((resp) => {
-        console.log("FETCH 3")
-        console.log(resp)
-        setData(resp.achievement)
-        console.log("THIS IS DATA", data)
-      })
-    if(!stats){
-      fetch("http://localhost:8000/user/stats", {
-        method: "GET",
-        headers: {
-          token: token
-        }
-      }).then((respons) => {
-        console.log("FETCH 2")
-        return respons.json()
-      }).then((rep) => {
-        console.log("FETCH 3")
-        console.log(rep)
-        setStats(rep.message)
-        console.log("THIS IS STATS", stats)
-      })
-    }
-    // if (!filter){
-      
-    // }
-    }
-  })
+        
+      }
+ 
+      }
+    })
 
   console.log("THIS IS DATA", data)
-
-  function fetchUserAchievements(){
-    fetch("http://localhost:8000/user/achievements/", {
-      method: "GET",
-      headers: {
-          token: token
-        }
-    }).then((respn) => {
-      return respn.json()
-    }).then((rsp) => {
-      console.log("THIS IS RSP", rsp)
-      setFilter(rsp.message)
-    })
-  }
 
   // console.log("DATA", data)
 
@@ -92,15 +85,6 @@ export default function Achievements() {
   // }
 
 
-  function handleCheckboxChange(category){
-    if (filter.includes(category)){
-      setFilter(filter.filter((c) => c !== category))
-    } else {
-      setFilter([...filter, category])
-    }
-  }
-
-
   // console.log("FETCHED ACHIEVEMENTS")
   return (
     <div className={styles2.page}>
@@ -110,19 +94,14 @@ export default function Achievements() {
           <h3 className={styles.logo}>Joypad</h3>
         </div>
         <div className={styles.headerButtons}>
-
           <button className={styles.transperentButton} onClick={()=>{window.location.href = "/profile/"}}>Home</button>
           <button className={styles.transperentButton} onClick={()=>{window.location.href = "/chat/"}}>Chat</button>
-
         </div>
       </header>
       <main className={styles2.mainBody}>
         {data &&
           <div className={styles2.content}>
-            {data.filter((res) => ( filter.length === 0 || 
-              filter.includes(res.category)
-            )).map((res, idx) => {
-              console.log("THIS IS RES", res)
+            {data.map((res, idx) => {
               return (
                 <div className={styles2.achievement} key={idx}>
                   <h3 className={styles2.achievementName}> {res.name} </h3>
@@ -146,21 +125,22 @@ export default function Achievements() {
             <div className="form-check">
               <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                Completed
+                1 filter
               </label>
             </div>
             <div className="form-check">
-              <input onClick={() => handleCheckboxChange(1)} className="form-check-input" type="checkbox" id="flexCheckDefault" />
+              <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                Send
+                2 filter
               </label>
             </div>
             <div className="form-check">
-              <input onClick={() => handleCheckboxChange(2)} className="form-check-input" type="checkbox" id="flexCheckDefault" />
+              <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                Delete
+                3 filter
               </label>
             </div>
+
           </div>
         </div>
       </main>

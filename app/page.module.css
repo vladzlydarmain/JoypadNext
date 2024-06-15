@@ -1,7 +1,7 @@
 .mainBody{
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgb(37,12,146) 0%, rgb(18,7,66) 80%);
+  background: linear-gradient(rgb(14, 15, 21) 5%, rgb(37,12,146) 0%, rgb(18,7,66) 80%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,21 @@
   cursor: pointer;
 }
 
+.mainImageBlock {
+  width: 100%; /* Максимальная ширина */
+}
+
+@media (max-width: 576px) {
+  .mainImageBlock {
+    max-width: 300px; /* Максимальная ширина для мобильных устройств */
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .mainImageBlock {
+    max-width: 500px; /* Максимальная ширина для планшетов */
+  }
+}
 .header {
   background-color: rgba(14, 15, 21, 0.6);
   backdrop-filter: blur(10px);
@@ -30,7 +45,6 @@
   align-items: center;
   width: 100%;
   padding: 10px 100px;
-  gap: 100px;
   box-sizing: border-box;
   top: 0;
   left: 0;
@@ -73,7 +87,6 @@
   background: none;
   border: none;
   font-size: 16px;
-  cursor: pointer;
 }
 .whiteButton{
   background-color: #fff;
@@ -120,8 +133,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  aspect-ratio: 1/1;
 }
 
 .mnn{
@@ -178,11 +189,4 @@
   font-size: 19px;
   border-radius: 11px;
   padding: 19px 32px;
-}
-
-@media screen and (min-width: 1400px) {
-  .mainImageBlock{
-    width: 800px;
-    height: 958px;
-  }
 }
