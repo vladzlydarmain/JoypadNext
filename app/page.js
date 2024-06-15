@@ -31,7 +31,7 @@ export default function Home() {
             <div className={styles.mainTextBlock}>
               <h1 className={styles.whiteText}>Unlock the Future<br />of Gaming</h1>
               <h4 className={styles.greyText}>Відкрийте для себе найкращу ігрову платформу</h4>
-              <button className={styles.purpleButton} onClick={() => { window.location.href = "https://joypad.onrender.com/profile" }}>Приєднуйся зараз</button>
+              <button className={styles.purpleButton} onClick={() => { window.location.href = "https://joypad.onrender.com/profile/" }}>Приєднуйся зараз</button>
             </div>
           </div>
           <div className={styles.mainHalf}>
