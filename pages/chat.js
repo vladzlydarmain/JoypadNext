@@ -324,7 +324,7 @@ export default function Chat() {
                             const dateSrc = mess.createdAt.split('T')[0]
                                 
                             return (
-                                <div className={styles.oneDayMassage}>
+                                <div className={styles.oneDayMassage} key={idx}>
                                     {(!prevDate  || prevDate!= dateSrc) && 
                                         <div className={styles.dateDiv}>
                                             <hr className={styles.messageTimeLine}/>
@@ -390,7 +390,7 @@ export default function Chat() {
                             <div className={styles.membersList}>
                                 {groupMembers && groupMembers.map((member,idx)=>{
                                     return(
-                                        <button className={styles.memberButton} onClick={()=>{openUserInfo(member)}}>
+                                        <button className={styles.memberButton} key={idx} onClick={()=>{openUserInfo(member)}}>
                                             <img className={styles.avatar} src={member.avatar}/>
                                             <h3>{member.name}</h3>
                                             <div className={styles.fill}></div>
@@ -463,9 +463,9 @@ export default function Chat() {
                         <input className={styles.nameInput} onChange={(e)=>{console.log(e.target.value);setName(e.target.value)}} placeholder={"Group name"}/>
                         {categories && 
                             <select className={styles.selectCategory} onChange={(e)=>{setCategory(e.target.value)}}>
-                                {categories.map((categ)=>{
+                                {categories.map((categ,idx)=>{
                                     return (
-                                        <option value={categ.id}>{categ.name}</option>
+                                        <option value={categ.id} key={idx}>{categ.name}</option>
                                     )
                                 })}
                             </select>

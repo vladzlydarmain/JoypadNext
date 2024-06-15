@@ -114,7 +114,7 @@ export default function Home() {
               <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="23" height="23" rx="4" fill="white" /></svg>
               <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="23" height="23" rx="4" fill="white" /></svg>
             </div>
-            <h3 className={styles.whiteGreyText}>"The simplest gaming platform for groups or companies. Chat in groups with friends, create news channels or events, and much more."</h3>
+            <h3 className={styles.whiteGreyText}>&quot;The simplest gaming platform for groups or companies. Chat in groups with friends, create news channels or events, and much more.&ldquo;</h3>
           </div>
         </div>
       </footer>

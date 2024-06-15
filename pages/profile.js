@@ -225,7 +225,7 @@ export default function Home() {
                             <div className={styles.ratingBox}>
                                 {groupRating.map((group,idx)=>{
                                     return(
-                                        <div className={styles.ratingGroup}>
+                                        <div className={styles.ratingGroup} key={idx}>
                                             <div className={styles.groupInfo}>
                                                 <h2>#{idx+1}</h2>
                                                 <p>{group.name}</p>
