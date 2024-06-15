@@ -29,15 +29,16 @@ a {
 }
 
 header {
-  /* background-color: rgba(14, 15, 21, 0.6); */
-  /* backdrop-filter: blur(10px); */
+  background-color: rgba(14, 15, 21, 0.6);
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   position: sticky;
   align-items: center;
   width: 100%;
   padding: 10px 100px;
+  gap: 100px;
   box-sizing: border-box;
   top: 0;
   left: 0;
@@ -60,7 +61,6 @@ footer{
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 100vw;
   padding: 40px;
   gap: 50px;
   box-sizing: border-box;

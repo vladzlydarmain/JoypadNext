@@ -12,16 +12,23 @@ export default function Chat() {
     const token = Cookies.get("token")
     const [info, setInfo] = useState()
     const [group, setGroup] = useState()
+    const [groupRank, setGroupRank] = useState()
     const [groupInfo, setGroupInfo] = useState()
     const [groupMembers,setGroupMembers] = useState()
     const [groups, setGroups] = useState()
     const [modal, setModal] = useState(false)
     const [submodal, setSubModal] = useState(false)
+    const [createModal, setCreateModal] = useState(false)
     const [code,setCode] = useState()
     const [error,setError] = useState()
     const [userInfo,setUserInfo] = useState()
+    const [mute,setMute] = useState()
+    const [name,setName] = useState()
+    const [category,setCategory] = useState()
+    const [description,setDescription] = useState()
+    const [categories,setCategories] = useState()
 
-    function updateMessages(groupId) {
+    function updateMessages(groupId){
         if(groupId && groupId != group){
             fetch(`http://localhost:8000/messages/group/${groupId}`, {
                 method: "GET",
@@ -82,6 +89,16 @@ export default function Chat() {
                             }
                         })
                     }
+                }).then(()=>{
+                    if(!categories){
+                        fetch('http://localhost:8000/group/category/all',{
+                            method:"GET"
+                        }).then((catResp)=>{
+                            return catResp.json()
+                        }).then((cat)=>{
+                            setCategories(cat.message)
+                        })
+                    }
                 })
             }
         }
@@ -98,19 +115,26 @@ export default function Chat() {
                 msgs.splice(msgs.findIndex((elem)=>Number(elem.id)==Number(args.id)),1)
                 setMessages(msgs)
             })
+            socket.on(`mute:${group}:${info.steamID}`,async (args)=>{
+                if(mute != args){
+                    setMute(args)                    
+                }
+            })
         }
     })
 
     function sendMessage() {
         if (`${Number(group)}` != "Nan") {
-            if (message) {
-                if(message.length > 0){
-                    setMessage("")
-                    socket.emit("send", {
-                        message: message,
-                        group: group,
-                        token: token
-                    })
+            if (message.split(/,| |\n/).filter((mess) => mess != '').length > 0) {
+                if(message.length <= 3000){
+                    if(message.length > 0){
+                        setMessage("")
+                        socket.emit("send", {
+                            message: message,
+                            group: group,
+                            token: token
+                        })
+                    }
                 }
             }
         }
@@ -136,10 +160,10 @@ export default function Chat() {
         }
     }
 
-    function deleteMessage(e){
+    function deleteMessage(id){
         socket.emit("delete",{
             token:token,
-            id:Number(e.target.value),
+            id:Number(id),
             groupId:group
         })
     }
@@ -147,12 +171,19 @@ export default function Chat() {
     async function openSettingsOfGroup(info) {
         setModal(true)
         setGroupInfo(info)
-        await fetch(`http://localhost:8000/group/users/${info.id}`,{
+        fetch(`http://localhost:8000/group/users/${info.id}`,{
             method:"GET",
         }).then((usersResp)=>{
             return usersResp.json()
         }).then(async (users)=>{
-            await setGroupMembers(users.users)
+            fetch('http://localhost:8000/group/rating/',{
+                method:"GET",
+            }).then((rankigRes)=>{
+                return rankigRes.json()
+            }).then((ranking)=>{
+                setGroupMembers(users.users)
+                setGroupRank(ranking.groups.findIndex((elem)=>elem.id == info.id)+1)
+            })
         })
     }
 
@@ -188,28 +219,58 @@ export default function Chat() {
         })
     }
 
-    function closeUserInfo(){
-        setSubModal(false)
+    function createGroup(){
+        fetch('http://localhost:8000/group/',{
+            method:"POST",
+            headers:{
+                token:token,
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                name:name,
+                description:description,
+                category:category
+            })
+        }).then((resp)=>{
+            return resp.json()
+        }).then((respp)=>{
+            if(respp.code!=201){
+                setError(respp.error)
+                console.log(respp.error)
+            } else {
+                Router.reload()
+            }
+        })
     }
 
-    function closeSettingsOfGroup() {
-        setModal(false)
+    function mutte(id){
+        socket.emit("mute",{
+            token:token,
+            group:groupInfo.id,
+            target:id
+        })
     }
 
-    function closeErrorModal(){
-        setModal(false)
-        setError(undefined)
+    function leave(groupid){
+        fetch(`http://localhost:8000/group/user/${groupid}`,{
+            method:"DELETE",
+            headers:{
+                token:token
+            }
+        }).then(()=>{
+            Router.reload()
+        })
     }
 
     return (
         <div className={styles.page}>
             <header>
-                <div className={styles.headerLogo}>
+                <div className={styles.headerLogo} onClick={()=>{window.location.href="/"}}>
                     <Image loader={() => `http://localhost:8000/image/logo.png`} src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} />
-                    <span className={styles.logo}>Joypad</span>
+                    <h3 className={styles.logo}>Joypad</h3>
                 </div>
                 <div className={styles.headerButtons}>
-                    <button className={styles.transperentButton}>Home</button>
+                    <button className={styles.transperentButton} onClick={()=>{window.location.href="/"}}>Home</button>
                     <button className={styles.transperentButton}>Chat</button>
                 </div>
             </header>
@@ -222,7 +283,7 @@ export default function Chat() {
                                 <Image loader={() => `http://localhost:8000/image/Vector.png`} src={"http://localhost:8000/image/Vector.png"} alt="Logo" width={22} height={22} />
                             </button>
                         </div>
-                        <button className={styles.createGroupButton}>
+                        <button className={styles.createGroupButton} onClick={()=>{setCreateModal(true)}}>
                             Create group
                         </button>
                         
@@ -244,103 +305,174 @@ export default function Chat() {
                             {info && 
                                 <strong>{info.name.toUpperCase()}</strong>
                             }
-                            <Image loader={() => `http://localhost:8000/image/settings1.png`} src={"http://localhost:8000/image/settings1.png"} width={36} height={36} />
+                            <img src={"http://localhost:8000/image/settings1.png"} style={{cursor:"pointer"}} width={36} height={36} onClick={()=>{window.location.href="/profile/"}}/>
                         </div>
                     </div>
                 </div>
+
                 <div className={styles.messages}>
                     {messages.length > 0 && 
                     <div id="ll" className={styles.messageArea} onLoad={()=>{const obj = document.querySelector("#ll");obj.scrollTo(0,obj.scrollHeight)}}>
                         {messages.map((mess,idx)=>{
+                            let prevDate
+                            if(messages[idx-1]){
+                                prevDate = messages[idx-1].createdAt.split('T')[0].split(":")
+                            }
+                            const avatarExist = !messages[idx-1] || messages[idx-1].steamid != messages[idx].steamid 
+                            const timeSrc = mess.createdAt.split('T')[1].split(":")
+                            const time = timeSrc[0]+":"+timeSrc[1]
+                            const dateSrc = mess.createdAt.split('T')[0]
+                                
                             return (
-                                <div className={mess.steamid == info.steamID ? styles.yourMessage:styles.receiverMessage} key={idx}>
-                                    <div className={mess.steamid == info.steamID ? styles.messageSender:styles.messageReceiver}>
-                                        <img className={styles.avatar} src={mess.avatar}/>
-                                        <div className={mess.steamid == info.steamID ? styles.messageSenderInfo:styles.messageResiverInfo}>
-                                            <h3 className={styles.messageName}>{mess.name}</h3>
-                                            <h6 className={styles.messageTime}>{mess.createdAt}</h6>
+                                <div className={styles.oneDayMassage}>
+                                    {(!prevDate  || prevDate!= dateSrc) && 
+                                        <div className={styles.dateDiv}>
+                                            <hr className={styles.messageTimeLine}/>
+                                            <h6 className={styles.messageDate}>{dateSrc}</h6>
+                                            <hr className={styles.messageTimeLine}/>
                                         </div>
-                                        {mess.steamid == info.steamID &&
-                                                <button className={styles.deleteButton} value={mess.id} onClick={deleteMessage}>
-                                                    delete message
-                                                </button>
+                                    }
+                                    <div className={styles.message} key={idx}>
+        
+
+                                        {avatarExist &&
+                                            <img className={styles.avatar} src={mess.avatar}/>
+                                        } 
+                                        {!avatarExist &&   
+                                            <div className={styles.messageTimeDel}>
+                                                {mess.steamid == info.steamID && 
+                                                    <img className={styles.delImg} src='http://localhost:8000/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
+                                                }
+                                                <p className={styles.messageTimeInvis}>{time}</p>
+                                            </div>
+                                        } 
+
+                                        <div className={styles.messageBlock}>
+                                            {(!messages[idx-1] || messages[idx-1].steamid != messages[idx].steamid )&&
+                                                <div className={styles.messageInfo}>
+                                                    <h3 className={styles.messageName}>{mess.name}</h3>
+                                                    <h6 className={styles.messageTime}>{time}</h6>
+                                                    {mess.steamid == info.steamID && 
+                                                        <img className={styles.delImg} src='http://localhost:8000/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
+                                                    }
+                                                </div> 
                                             }
+
+                                            {mess.value.split("\n").map((ms,idx)=>{
+                                                return (  
+                                                    <p key={idx} className={styles.messageText}>{ms}</p>
+                                                )
+                                            })}
+
+                                        </div>
                                     </div>
-                                    {/* <h1 className={styles.LOOOOOOOOOOOOOOH}>LOOOOOOOOOOOOOOH</h1> */}
-
-
-                                    {mess.value.split("\n").map((ms,idx)=>{
-                                        return (
-                                            <p key={idx} className={mess.steamid == info.steamID ? styles.senderText:styles.receiverText}>{ms}</p>
-                                        )
-                                    })}
                                 </div>
                             )
                         })}
                     </div>
                     }
                     <div className={styles.enterMessage}>
-                        <textarea className={styles.sendInput} onChange={(e)=>{setMessage(e.target.value)}} value={message}></textarea>
-                        <button className={styles.sendButton} onClick={sendMessage}>
-                            <Image loader={() => `http://localhost:8000/image/send1.png`} src={"http://localhost:8000/image/send1.png"} width={39} height={39} />
-                        </button>
+                        <textarea className={styles.sendInput} onChange={(e)=>{setMessage(e.target.value)}} value={message} minLength={1} maxLength={3000}></textarea>
+                        {!(mute) &&
+                            <button className={styles.sendButton} onClick={sendMessage}>
+                                <Image loader={() => `http://localhost:8000/image/send1.png`} src={"http://localhost:8000/image/send1.png"} width={25} height={25} />
+                            </button>
+                        }
                     </div>
                 </div>
             </main>
             {modal && 
-                <div className={styles.modalWrapper} onClick={(e)=>{setModal(false);setError(undefined);e.stopPropagation()}}>
+                <div className={styles.modalWrapper} onClick={(e)=>{setModal(false);setError(undefined);e.stopPropagation();setGroupMembers(undefined)}}>
                     {error || 
                         <div className={styles.modalBox} onClick={(e)=>{e.stopPropagation()}}>
                             <h2>Members</h2>
-                            {groupInfo && <p>Join code:{groupInfo.code}</p>}
-                            <div>
+                            {groupInfo && <p>Join code: <strong>{groupInfo.code}</strong></p>}
+                            <div className={styles.membersList}>
                                 {groupMembers && groupMembers.map((member,idx)=>{
                                     return(
-                                        <button onClick={()=>{openUserInfo(member)}}>
+                                        <button className={styles.memberButton} onClick={()=>{openUserInfo(member)}}>
                                             <img className={styles.avatar} src={member.avatar}/>
                                             <h3>{member.name}</h3>
+                                            <div className={styles.fill}></div>
+                                            {groupInfo.admin_id == info.steamID && 
+                                                <button className={styles.muteButton} onClick={(e)=>{e.stopPropagation();mutte(member.steamID);const img = document.querySelector(`#mute${idx}`);if(img.src == "http://localhost:8000/image/mute.png"){img.src = "http://localhost:8000/image/sound.png"}else{img.src = "http://localhost:8000/image/mute.png"}}}>
+                                                    <img id={`mute${idx}`} className={styles.muteImg} src={`http://localhost:8000/image/${member.mute ? "mute":"sound"}.png`} />
+                                                </button>
+                                            }
                                         </button>
                                     )
                                 })}
                             </div>
+                            <button className={styles.achievementsButton}>
+                                <img src="http://localhost:8000/image/ranking2.png"/>
+                                Achievements
+                            </button>
+                            <div className={styles.info}>
+                                <img src="http://localhost:8000/image/ranking2.png"/>
+                                <div>
+                                    <p>Current place in ranking: #{groupRank}</p>
+                                    <p>Total points: {groupInfo.points}</p>
+                                </div>
+                            </div>
+                            <button className={styles.leaveButton} onClick={()=>{leave(groupInfo.id)}}>Leave</button>
                         </div>
                     }
                 </div>
             }
             {submodal &&
-                <div className={styles.modalWrapper} onClick={(e)=>{e.stopPropagation();setSubModal(false)}}>
+                <div className={styles.modalWrapper} onClick={(e)=>{e.stopPropagation();setSubModal(false);setUserInfo(undefined);}}>
                     {userInfo && 
-                        <div onClick={(e)=>{e.stopPropagation()}}>
-                            <div>
-                                <div>
-                                    <img src={userInfo.avatar}/>
-                                    <h3>{userInfo.name}</h3>
-                                </div>
-                                <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${`${userInfo.rank}` == 'null' ? 0: `${userInfo.rank}`[0]}.png`}/>
-                                {userInfo.rank != null && userInfo.rank[1] != 0 &&
-                                    <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${userInfo.rank[1]}.png`}/>
-                                }
-                            </div>
-                            <h3>{userInfo.description || ""}</h3>
-                            <div>
-                                <div>
-                                    <p>victory</p>
-                                    <h3>{userInfo.winrate.win}</h3>
-                                </div>
-                                <div>
-                                    <p>defeats</p>
-                                    <h3>{userInfo.winrate.lose}</h3>
-                                </div>
-                                <div>
-                                    <p>win share</p>
-                                    <h2>{100/(userInfo.winrate.win+userInfo.winrate.lose == 0 ? 1:userInfo.winrate.win+userInfo.winrate.lose)*userInfo.winrate.win}%</h2>
+                        <div className={styles.modalInfoBox} onClick={(e)=>{e.stopPropagation()}}>
+                            <div className={styles.profile}>
+                                <img src={userInfo.avatar} className={styles.avatarInfo}/>
+                                <div className={styles.rankDiv}>
+                                    <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${`${userInfo.rank}` == 'null' ? 0: `${userInfo.rank}`[0]}.png`}/>
+                                    {userInfo.rank != null && userInfo.rank[1] != 0 &&
+                                        <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${userInfo.rank[1]}.png`}/>
+                                    }
                                 </div>
                             </div>
+                            <p className={styles.name} >{userInfo.name}</p>
+                            <h3 className={styles.description}>{userInfo.description || ""}</h3>
+                            <div className={styles.userStats}>
+                                <div className={styles.statInfo}>
+                                    <p className={styles.stat}>victory</p>
+                                    <h3 className={styles.statWin}>{userInfo.winrate.win}</h3>
+                                </div>
+                                <div className={styles.statInfo}>
+                                    <p className={styles.stat}>defeats</p>
+                                    <h3 className={styles.statLose}>{userInfo.winrate.lose}</h3>
+                                </div>
+                                <div className={styles.statInfo}>
+                                    <p className={styles.stat}>win share</p>
+                                    <h2 className={styles.statWinShare}>{Math.round(100/(userInfo.winrate.win+userInfo.winrate.lose == 0 ? 1:userInfo.winrate.win+userInfo.winrate.lose)*userInfo.winrate.win)}%</h2>
+                                </div>
+                            </div>
+                            <button className={styles.buttonOk} onClick={(e)=>{setSubModal(false); setUserInfo(undefined); e.stopPropagation()}}>
+                                Ok
+                            </button>
                         </div>
                     }
-                    <button onClick={(e)=>{closeUserInfo(); setUserInfo(undefined); e.stopPropagation()}}>
-                        Ok
-                    </button>
+                </div> 
+            }
+            {createModal &&
+                <div className={styles.modalWrapper} onClick={(e)=>{e.stopPropagation();setCreateModal(false)}}>
+                    <div className={styles.modalBoxGroup} onClick={(e)=>{e.stopPropagation()}}>
+                        <input className={styles.nameInput} onChange={(e)=>{console.log(e.target.value);setName(e.target.value)}} placeholder={"Group name"}/>
+                        {categories && 
+                            <select className={styles.selectCategory} onChange={(e)=>{setCategory(e.target.value)}}>
+                                {categories.map((categ)=>{
+                                    return (
+                                        <option value={categ.id}>{categ.name}</option>
+                                    )
+                                })}
+                            </select>
+                        }
+                        <textarea className={styles.descriptionInput} onChange={(e)=>{setDescription(e.target.value)}} placeholder="..."></textarea>
+                        <button className={styles.createButton} onClick={()=>{createGroup()}}>
+                            Create Group
+                        </button>
+                    </div>
                 </div>
             }
         </div>
