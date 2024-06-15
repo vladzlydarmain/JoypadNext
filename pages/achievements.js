@@ -143,12 +143,12 @@ export default function Achievements() {
         <div className="div_filter">
           <div className={styles2.filter}>
             <h3 className="text-white">Filter</h3>
-            <div className="form-check">
+            {/* <div className="form-check">
               <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
                 Completed
               </label>
-            </div>
+            </div> */}
             <div className="form-check">
               <input onClick={() => handleCheckboxChange(1)} className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
