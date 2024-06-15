@@ -20,14 +20,14 @@ export default function Achievements() {
   useEffect(() => {
     console.log("FETCH -1")
     if (!token || token == null || token == "undefined") {
-      window.location.href = "http://localhost:8000/user/auth"
+      window.location.href = "https://joypadapi.onrender.com/user/auth"
     }
     console.log("FETCH 0")
     if (id || id != undefined) {
       if (!data) {
         console.log("THIS IS ID", id)
         console.log("FETCH 1")
-        fetch(`http://localhost:8000/achievements/group/all`, {
+        fetch(`https://joypadapi.onrender.com/achievements/group/all`, {
           method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function Achievements() {
         })
         console.log('THIS IS FETCH DATA')
         if (!stats){
-          fetch(`http://localhost:8000/group/stats/${id}`, {
+          fetch(`https://joypadapi.onrender.com/group/stats/${id}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function Achievements() {
   // console.log("DATA", data.length)
 
   // function fetchAchievements(){  
-  //       fetch("http://localhost:8000/achievements/user", {
+  //       fetch("https://joypadapi.onrender.com/achievements/user", {
   //       method: "GET",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export default function Achievements() {
     <div className={styles2.page}>
       <header>
         <div className={styles.headerLogo} onClick={()=>{window.location.href = "/"}}>
-          <img src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} />
+          <img src={"https://joypadapi.onrender.com/image/logo.png"} alt="Logo" width={47} height={47} />
           <h3 className={styles.logo}>Joypad</h3>
         </div>
         <div className={styles.headerButtons}>
@@ -106,7 +106,7 @@ export default function Achievements() {
                 <div className={styles2.achievement} key={idx}>
                   <h3 className={styles2.achievementName}> {res.name} </h3>
                   <div>
-                    <Image loader={() => `http://localhost:8000/image/message_icon_achievements.png`} src={"http://localhost:8000/image/message_icon_achievements.png"} width={111} height={111} />
+                    <Image loader={() => `https://joypadapi.onrender.com/image/message_icon_achievements.png`} src={"https://joypadapi.onrender.com/image/message_icon_achievements.png"} width={111} height={111} />
                   </div>
                   {stats &&
                     <div>
@@ -153,7 +153,7 @@ export default function Achievements() {
 {/* <div className={styles2.achievement}>
           <h3 className={styles2.achievementName}> Send 100 messages </h3>
           <div>
-          <Image loader={() => `http://localhost:8000/image/message_icon_achievements.png`} src={"http://localhost:8000/image/message_icon_achievements.png"} width={111} height={111} />  
+          <Image loader={() => `https://joypadapi.onrender.com/image/message_icon_achievements.png`} src={"https://joypadapi.onrender.com/image/message_icon_achievements.png"} width={111} height={111} />  
           </div>
           <hr className={styles2.progressBar}/>
           <h4 className={styles2.progressValue}> 77/100 </h4>

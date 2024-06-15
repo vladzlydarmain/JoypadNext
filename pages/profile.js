@@ -54,7 +54,7 @@ export default function Home() {
     }
 
     function changeDescription(){
-        fetch('http://localhost:8000/user/description',{
+        fetch('https://joypadapi.onrender.com/user/description',{
             method:"POST",
             headers:{
                 token:token,
@@ -72,7 +72,7 @@ export default function Home() {
 
     function getCode(){
         if(!code){
-            fetch('http://localhost:8000/user/auth/code',{
+            fetch('https://joypadapi.onrender.com/user/auth/code',{
                 method:"GET",
                 headers:{
                     token:token
@@ -100,10 +100,10 @@ export default function Home() {
 
     useEffect(()=>{
         if(!token){
-            window.location.href = "http://localhost:8000/user/auth"
+            window.location.href = "https://joypadapi.onrender.com/user/auth"
         } else {
             if(!info){
-                fetch("http://localhost:8000/user/auth",{
+                fetch("https://joypadapi.onrender.com/user/auth",{
                     method:"GET",
                     headers:{
                         token:token
@@ -112,7 +112,7 @@ export default function Home() {
                     return response.json()
                 }).then((resp)=>{
                     if(resp.code != 200){
-                        window.location.href = "http://localhost:8000/user/auth"
+                        window.location.href = "https://joypadapi.onrender.com/user/auth"
                     }
                     setInfo(resp.info)
                     updateinfo(resp.info)
@@ -121,7 +121,7 @@ export default function Home() {
         }
 
         if(page == "rating" && !groupRating){
-            fetch("http://localhost:8000/group/rating",{
+            fetch("https://joypadapi.onrender.com/group/rating",{
                 method:"GET"
             }).then((response)=>{
                 return response.json()
@@ -136,7 +136,7 @@ export default function Home() {
         <div className={styles.page}>
             <header>
                 <div className={styles.headerLogo} onClick={()=>{window.location.href = "/"}}>
-                  <img src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} />
+                  <img src={"https://joypadapi.onrender.com/image/logo.png"} alt="Logo" width={47} height={47} />
                   <h3 className={styles.logo}>Joypad</h3>
                 </div>
         
@@ -150,19 +150,19 @@ export default function Home() {
             <div className={styles.main1}>
                 <div className={styles.sideBar}>
                     <button className={styles.buttonBack} onClick={()=>{window.location.href="/chat/"}}>
-                        <img src="http://localhost:8000/image/strelka_left.png" alt="left" width={36} height={36} />
+                        <img src="https://joypadapi.onrender.com/image/strelka_left.png" alt="left" width={36} height={36} />
                         Back
                     </button>
                     <button className={page=="profile" ? styles.sideBarButtonsSelected:styles.sideBarButtons} onClick={()=>{setPage("profile")}}>
-                        <img src={`http://localhost:8000/image/user${page == "profile" ? 1:2}.png`}/>
+                        <img src={`https://joypadapi.onrender.com/image/user${page == "profile" ? 1:2}.png`}/>
                         Profile
                     </button>
                     <button className={page=="rating" ? styles.sideBarButtonsSelected:styles.sideBarButtons} onClick={()=>{setPage("rating")}}>
-                        <img src={`http://localhost:8000/image/ranking${page == "rating" ? 1:2}.png`}/>
+                        <img src={`https://joypadapi.onrender.com/image/ranking${page == "rating" ? 1:2}.png`}/>
                         Rating
                     </button>
                     <button className={styles.sideBarButtons} onClick={()=>{window.location.href = "/achievements/"}}>
-                        <img src="http://localhost:8000/image/achievements.png"/>
+                        <img src="https://joypadapi.onrender.com/image/achievements.png"/>
                         Achievements
                     </button>
                 </div>

@@ -61,7 +61,7 @@
 }
 
 .page{
-    background: url(http://localhost:8000/image/bg.png);
+    background: url(https://joypadapi.onrender.com/image/bg.png);
     background-size: cover;
     display: flex;
     flex-direction: column;

@@ -30,7 +30,7 @@ export default function Chat() {
 
     function updateMessages(groupId){
         if(groupId && groupId != group){
-            fetch(`http://localhost:8000/messages/group/${groupId}`, {
+            fetch(`https://joypadapi.onrender.com/messages/group/${groupId}`, {
                 method: "GET",
                 headers: {
                     token: token
@@ -39,7 +39,7 @@ export default function Chat() {
                 return ressp.json()
             }).then(async (mesgs) => {
                 const msgs = []
-                fetch(`http://localhost:8000/group/users/avatar/${groupId}`, {
+                fetch(`https://joypadapi.onrender.com/group/users/avatar/${groupId}`, {
                     method: "GET"
                 }).then((avas) => {
                     return avas.json()
@@ -56,10 +56,10 @@ export default function Chat() {
 
     useEffect(() => {
         if (!token) {
-            window.location.href = "http://localhost:8000/user/auth"
+            window.location.href = "https://joypadapi.onrender.com/user/auth"
         } else {
             if (!info) {
-                fetch("http://localhost:8000/user/auth", {
+                fetch("https://joypadapi.onrender.com/user/auth", {
                     method: "GET",
                     headers: {
                         token: token
@@ -68,13 +68,13 @@ export default function Chat() {
                     return response.json()
                 }).then((resp) => {
                     if(resp.code != 200){
-                        window.location.href = "http://localhost:8000/user/auth"
+                        window.location.href = "https://joypadapi.onrender.com/user/auth"
                     } else {
                         setInfo(resp.info)
                     }
                 }).then(() => {
                     if (!groups) {
-                        fetch('http://localhost:8000/user/groups/', {
+                        fetch('https://joypadapi.onrender.com/user/groups/', {
                             method: "GET",
                             headers: {
                                 token: token
@@ -91,7 +91,7 @@ export default function Chat() {
                     }
                 }).then(()=>{
                     if(!categories){
-                        fetch('http://localhost:8000/group/category/all',{
+                        fetch('https://joypadapi.onrender.com/group/category/all',{
                             method:"GET"
                         }).then((catResp)=>{
                             return catResp.json()
@@ -142,7 +142,7 @@ export default function Chat() {
 
     function joinGroup(){
         if(code){
-            fetch(`http://localhost:8000/group/user/?code=${code}`,{
+            fetch(`https://joypadapi.onrender.com/group/user/?code=${code}`,{
                 method:"POST",
                 headers:{
                     token:token
@@ -171,12 +171,12 @@ export default function Chat() {
     async function openSettingsOfGroup(info) {
         setModal(true)
         setGroupInfo(info)
-        fetch(`http://localhost:8000/group/users/${info.id}`,{
+        fetch(`https://joypadapi.onrender.com/group/users/${info.id}`,{
             method:"GET",
         }).then((usersResp)=>{
             return usersResp.json()
         }).then(async (users)=>{
-            fetch('http://localhost:8000/group/rating/',{
+            fetch('https://joypadapi.onrender.com/group/rating/',{
                 method:"GET",
             }).then((rankigRes)=>{
                 return rankigRes.json()
@@ -220,7 +220,7 @@ export default function Chat() {
     }
 
     function createGroup(){
-        fetch('http://localhost:8000/group/',{
+        fetch('https://joypadapi.onrender.com/group/',{
             method:"POST",
             headers:{
                 token:token,
@@ -252,7 +252,7 @@ export default function Chat() {
     }
 
     function leave(groupid){
-        fetch(`http://localhost:8000/group/user/${groupid}`,{
+        fetch(`https://joypadapi.onrender.com/group/user/${groupid}`,{
             method:"DELETE",
             headers:{
                 token:token
@@ -266,7 +266,7 @@ export default function Chat() {
         <div className={styles.page}>
             <header>
                 <div className={styles.headerLogo} onClick={()=>{window.location.href="/"}}>
-                    <Image loader={() => `http://localhost:8000/image/logo.png`} src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} />
+                    <Image loader={() => `https://joypadapi.onrender.com/image/logo.png`} src={"https://joypadapi.onrender.com/image/logo.png"} alt="Logo" width={47} height={47} />
                     <h3 className={styles.logo}>Joypad</h3>
                 </div>
                 <div className={styles.headerButtons}>
@@ -280,7 +280,7 @@ export default function Chat() {
                         <div className={styles.enterCodeButton}>
                             <input className={styles.enterCodeInput} placeholder="Enter code" onChange={(e)=>{setCode(e.target.value)}}/>
                             <button className={styles.imageEnter} onClick={joinGroup}>
-                                <Image loader={() => `http://localhost:8000/image/Vector.png`} src={"http://localhost:8000/image/Vector.png"} alt="Logo" width={22} height={22} />
+                                <Image loader={() => `https://joypadapi.onrender.com/image/Vector.png`} src={"https://joypadapi.onrender.com/image/Vector.png"} alt="Logo" width={22} height={22} />
                             </button>
                         </div>
                         <button className={styles.createGroupButton} onClick={()=>{setCreateModal(true)}}>
@@ -294,7 +294,7 @@ export default function Chat() {
                                         <button key={idx} className={Number(grp.id) == Number(group) ? styles.sideBarButtonsSelected:styles.sideBarButtons } value={grp.id} onClick={(e)=>{if(e.target.value && Number(e.target.value)!= group){setGroup(Number(e.target.value));updateMessages(Number(e.target.value))}}} >
                                             <div className={styles.nameButton}>{grp.name}</div>
                                             <button className={styles.dotsButton} onClick={()=>{openSettingsOfGroup(groups[idx])}}>
-                                                <Image loader={() => `http://localhost:8000/image/dots1.png`} src={"http://localhost:8000/image/dots1.png"} width={36} height={36} />
+                                                <Image loader={() => `https://joypadapi.onrender.com/image/dots1.png`} src={"https://joypadapi.onrender.com/image/dots1.png"} width={36} height={36} />
                                             </button>
                                         </button>
                                     )
@@ -305,7 +305,7 @@ export default function Chat() {
                             {info && 
                                 <strong>{info.name.toUpperCase()}</strong>
                             }
-                            <img src={"http://localhost:8000/image/settings1.png"} style={{cursor:"pointer"}} width={36} height={36} onClick={()=>{window.location.href="/profile/"}}/>
+                            <img src={"https://joypadapi.onrender.com/image/settings1.png"} style={{cursor:"pointer"}} width={36} height={36} onClick={()=>{window.location.href="/profile/"}}/>
                         </div>
                     </div>
                 </div>
@@ -341,7 +341,7 @@ export default function Chat() {
                                         {!avatarExist &&   
                                             <div className={styles.messageTimeDel}>
                                                 {mess.steamid == info.steamID && 
-                                                    <img className={styles.delImg} src='http://localhost:8000/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
+                                                    <img className={styles.delImg} src='https://joypadapi.onrender.com/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
                                                 }
                                                 <p className={styles.messageTimeInvis}>{time}</p>
                                             </div>
@@ -353,7 +353,7 @@ export default function Chat() {
                                                     <h3 className={styles.messageName}>{mess.name}</h3>
                                                     <h6 className={styles.messageTime}>{time}</h6>
                                                     {mess.steamid == info.steamID && 
-                                                        <img className={styles.delImg} src='http://localhost:8000/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
+                                                        <img className={styles.delImg} src='https://joypadapi.onrender.com/image/delete.png' onClick={()=>{deleteMessage(mess.id)}}/>
                                                     }
                                                 </div> 
                                             }
@@ -375,7 +375,7 @@ export default function Chat() {
                         <textarea className={styles.sendInput} onChange={(e)=>{setMessage(e.target.value)}} value={message} minLength={1} maxLength={3000}></textarea>
                         {!(mute) &&
                             <button className={styles.sendButton} onClick={sendMessage}>
-                                <Image loader={() => `http://localhost:8000/image/send1.png`} src={"http://localhost:8000/image/send1.png"} width={25} height={25} />
+                                <Image loader={() => `https://joypadapi.onrender.com/image/send1.png`} src={"https://joypadapi.onrender.com/image/send1.png"} width={25} height={25} />
                             </button>
                         }
                     </div>
@@ -395,8 +395,8 @@ export default function Chat() {
                                             <h3>{member.name}</h3>
                                             <div className={styles.fill}></div>
                                             {groupInfo.admin_id == info.steamID && 
-                                                <button className={styles.muteButton} onClick={(e)=>{e.stopPropagation();mutte(member.steamID);const img = document.querySelector(`#mute${idx}`);if(img.src == "http://localhost:8000/image/mute.png"){img.src = "http://localhost:8000/image/sound.png"}else{img.src = "http://localhost:8000/image/mute.png"}}}>
-                                                    <img id={`mute${idx}`} className={styles.muteImg} src={`http://localhost:8000/image/${member.mute ? "mute":"sound"}.png`} />
+                                                <button className={styles.muteButton} onClick={(e)=>{e.stopPropagation();mutte(member.steamID);const img = document.querySelector(`#mute${idx}`);if(img.src == "https://joypadapi.onrender.com/image/mute.png"){img.src = "https://joypadapi.onrender.com/image/sound.png"}else{img.src = "https://joypadapi.onrender.com/image/mute.png"}}}>
+                                                    <img id={`mute${idx}`} className={styles.muteImg} src={`https://joypadapi.onrender.com/image/${member.mute ? "mute":"sound"}.png`} />
                                                 </button>
                                             }
                                         </button>
@@ -405,12 +405,12 @@ export default function Chat() {
                             </div>
                             {groupInfo && 
                                 <button className={styles.achievementsButton} onClick={()=>{window.location.href = `/achievements/${groupInfo.id}`}}>
-                                    <img src="http://localhost:8000/image/ranking2.png"/>
+                                    <img src="https://joypadapi.onrender.com/image/ranking2.png"/>
                                     Achievements
                                 </button>
                             }
                             <div className={styles.info}>
-                                <img src="http://localhost:8000/image/ranking2.png"/>
+                                <img src="https://joypadapi.onrender.com/image/ranking2.png"/>
                                 <div>
                                     <p>Current place in ranking: #{groupRank}</p>
                                     <p>Total points: {groupInfo.points}</p>

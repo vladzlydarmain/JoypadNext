@@ -12,7 +12,7 @@ export default function Home() {
     <div className={styles.mainBody}>
       <header className={styles.header}>
         <div className={styles.headerLogo} onClick={()=>{window.location.href = "/"}}>
-          <img src={"http://localhost:8000/image/logo.png"} alt="Logo" width={47} height={47} className="img-fluid w-100" />
+          <img src={"https://joypadapi.onrender.com/image/logo.png"} alt="Logo" width={47} height={47} className="img-fluid w-100" />
           <h3 className={styles.logo}>Joypad</h3>
         </div>
 
@@ -37,7 +37,7 @@ export default function Home() {
           <div className={styles.mainHalf}>
             <img
               className={styles.mainImageBlock}
-              src={"http://localhost:8000/image/main_image_message.png"}
+              src={"https://joypadapi.onrender.com/image/main_image_message.png"}
               alt="Gaming Illustration"
             />
           </div>
@@ -72,13 +72,13 @@ export default function Home() {
           </div>
 
           <div className={styles.sectorHalfRight}>
-            <Image loader={() => `http://localhost:8000/image/achivemens.png`} src={"http://localhost:8000/image/achivemens.png"} alt="achivemens" width={461} height={337} />
+            <Image loader={() => `https://joypadapi.onrender.com/image/achivemens.png`} src={"https://joypadapi.onrender.com/image/achivemens.png"} alt="achivemens" width={461} height={337} />
           </div>
         </div>
 
         <div className={styles.mainPageSector}>
           <div className={styles.sectorHalfLeft}>
-            <Image loader={() => `http://localhost:8000/image/main_message.png`} src={"http://localhost:8000/image/main_message.png"} alt="main_message" width={717} height={247} />
+            <Image loader={() => `https://joypadapi.onrender.com/image/main_message.png`} src={"https://joypadapi.onrender.com/image/main_message.png"} alt="main_message" width={717} height={247} />
             <div className={styles.purpleBlock}>
               Elevate Your Gaming Experience
             </div>
@@ -100,13 +100,13 @@ export default function Home() {
           </div>
 
           <div className={styles.sectorHalfRight}>
-            <Image loader={() => `http://localhost:8000/image/main_girl.png`} src={"http://localhost:8000/image/main_girl.png"} alt="main_girl" width={461} height={337} />
+            <Image loader={() => `https://joypadapi.onrender.com/image/main_girl.png`} src={"https://joypadapi.onrender.com/image/main_girl.png"} alt="main_girl" width={461} height={337} />
           </div>
         </div>
 
         <div className={styles.mainPageSector}>
           <div className={styles.sectorHalfLeft}>
-            <Image loader={() => `http://localhost:8000/image/main_cosmonaft.png`} src={"http://localhost:8000/image/main_cosmonaft.png"} alt="main_cosmonaft" width={556} height={698} />
+            <Image loader={() => `https://joypadapi.onrender.com/image/main_cosmonaft.png`} src={"https://joypadapi.onrender.com/image/main_cosmonaft.png"} alt="main_cosmonaft" width={556} height={698} />
           </div>
 
           <div className={styles.sectorHalfLeft}>
