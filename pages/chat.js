@@ -430,7 +430,7 @@ export default function Chat() {
                                 <div className={styles.rankDiv}>
                                     <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${`${userInfo.rank}` == 'null' ? 0: `${userInfo.rank}`[0]}.png`}/>
                                     {userInfo.rank != null && userInfo.rank[1] != 0 &&
-                                        <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${userInfo.rank[1]}.png`}/>
+                                        <img src={`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${`${userInfo.rank}`[1]}.png`}/>
                                     }
                                 </div>
                             </div>
