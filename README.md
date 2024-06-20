@@ -6,7 +6,7 @@ Roman Babai
 
 [Daniil Makhno](https://github.com/shrek0228/)
 
-Related apps
+Related apps:
 
 [API](https://github.com/vladzlydarmain/JoypadAPI)
 
