@@ -2,9 +2,11 @@ Co-Authored:
 
 [Serhiy Vahnyuk](https://github.com/SerhiyVahnyuk/)
 
-[Roman Babai](https://github.com/shrek0228/)
+Roman Babai
 
-Daniil Makhno
+[Daniil Makhno](https://github.com/shrek0228/)
+
+Related apps
 
 [API](https://github.com/vladzlydarmain/JoypadAPI)
 
