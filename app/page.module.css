@@ -40,7 +40,7 @@
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   position: sticky;
   align-items: center;
   width: 100%;
