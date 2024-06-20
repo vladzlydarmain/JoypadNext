@@ -1,3 +1,10 @@
+Co-Authored:
+[Serhiy Vahnyuk](https://github.com/SerhiyVahnyuk/)
+[Roman Babai](https://github.com/shrek0228/)
+Daniil Makhno
+
+[API](https://github.com/vladzlydarmain/JoypadAPI)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
