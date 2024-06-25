@@ -1,48 +1,49 @@
-Co-Authored:
 
-[Serhiy Vahnyuk](https://github.com/SerhiyVahnyuk/)
+![Joypad](https://joypadapi.onrender.com/image/logotip.png)
 
-Roman Babai
 
-[Daniil Makhno](https://github.com/shrek0228/)
+# Joypad
 
-Related apps:
+Joypad is a messenger application with integration for Steam and Dota 2. It allows users to create chat groups, invite others, and view win rates and ranks of players. Below, I've included details about the project and mentioned developers:
 
-[API](https://github.com/vladzlydarmain/JoypadAPI)
+## Other dependencies
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- **API** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
+- **Mobile app** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
 
-## Getting Started
+## Features
 
-First, run the development server:
+- **Chat Groups**: Create and manage chat groups for communication.
+- **Steam Integration**: Connect with Steam accounts for seamless communication.
+- **Dota 2 Integration**: Access Dota 2 data, including win rates and ranks.
+- **User Profiles**: View detailed profiles of users within the app.
+- **User/Groups Achievements**: Get achievements and also use them to promote your group in the leader table.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Developers
 
-Open [https://joypad.onrender.com](https://joypad.onrender.com) with your browser to see the result.
+- **Vlad Zlydar**: Teamlead/developer of Joypad project.
+- [**Serhiy Vahnyuk**](https://github.com/SerhiyVahnyuk/): Also the developer on the project. Check out their GitHub profile.
+- **Roman Babai**: Designer/contributor to JoypadNext.
+- [**Daniil Makhno**](https://github.com/shrek0228/): Yet another developer involved. You can find their GitHub profile.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Technologies
+- Figma
+- PgAdmin 4
+- Visual Studio Code
+- Trello
+- Render
+- PostgreSQL
+- JavaScript
+- Next js
+- React
+- React Native
+- Express js
+- Sequelize
+- socket.io
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Installation
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository: `git clone https://github.com/vladzlydarmain/JoypadNext.git`
+2. Install dependencies: `npm install`
+3. Build the app: `npm run build`
+3. Run the app: `npm run start`
