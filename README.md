@@ -1,15 +1,17 @@
 
 ![Joypad](https://joypadapi.onrender.com/image/logotip.png)
 
-
 # Joypad
 
 Joypad is a messenger application with integration for Steam and Dota 2. It allows users to create chat groups, invite others, and view win rates and ranks of players. Below, I've included details about the project and mentioned developers:
 
-## Other dependencies
+## Other dependencies/info
 
 - **API** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
 - **Mobile app** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
+- **Database/project structure** - [FigJam](https://www.figma.com/board/HXlA34jbAjDpTqBf6BoeUX/Untitled?node-id=0-1&t=c0rnb1M6bUEFZ10I-1)
+- **Figma project** - [Design](https://www.figma.com/design/GyNu2Fr2QDvOzELk8D71Yy/Untitled?node-id=818-114&t=pwG4RJ2PRSEnuZKo-1)
+- **Trello** - [Board](https://trello.com/b/KT1P2b6o/dpl-js-dev3)
 
 ## Features
 
@@ -19,21 +21,30 @@ Joypad is a messenger application with integration for Steam and Dota 2. It allo
 - **User Profiles**: View detailed profiles of users within the app.
 - **User/Groups Achievements**: Get achievements and also use them to promote your group in the leader table.
 
+## How this project can help ordinary users and us 
+
+- Other users can check how we created certain systems
+- For us it can be usefull in future when applying to other educational institutions or when looking for a job
+- Or we can take some tips for improving/creating certain systems
+
+## What did this project teach us?
+This project taught us a little better how to organize team work, as well as how to create some of the systems, for example - sending/receiving messages
+
 ## Developers
 
-- **Vlad Zlydar**: Teamlead/developer of Joypad project.
-- [**Serhiy Vahnyuk**](https://github.com/SerhiyVahnyuk/): Also the developer on the project. Check out their GitHub profile.
-- **Roman Babai**: Designer/contributor to JoypadNext.
-- [**Daniil Makhno**](https://github.com/shrek0228/): Yet another developer involved. You can find their GitHub profile.
+- **Vlad Zlydar**
+- [**Serhiy Vahnyuk**](https://github.com/SerhiyVahnyuk/)
+- **Roman Babai**
+- [**Daniil Makhno**](https://github.com/shrek0228/)
 
 ## Technologies
 - Figma
 - PgAdmin 4
-- Visual Studio Code
 - Trello
 - Render
 - PostgreSQL
 - JavaScript
+- CSS
 - Next js
 - React
 - React Native
@@ -41,9 +52,10 @@ Joypad is a messenger application with integration for Steam and Dota 2. It allo
 - Sequelize
 - socket.io
 
-## Installation
+## Installation (Next js)
 
 1. Clone the repository: `git clone https://github.com/vladzlydarmain/JoypadNext.git`
 2. Install dependencies: `npm install`
-3. Build the app: `npm run build`
-3. Run the app: `npm run start`
+3. Before starting you need replace all "https://joypadapi.onrender.com" to your api host (Note: you only need to replace part which was mentioned earlier NOT ALL THE URL!) Exception: https://github.com/vladzlydarmain/JoypadNext/blob/30318a71dc9ac19f071fc2a2fcc4a97e22909e77/socket.js#L5 Replace all the url
+4. Dev mode: `npm run dev`
+Build: `npm run build` then `npm run start`
