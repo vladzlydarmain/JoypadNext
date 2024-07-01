@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 export default function Achievements() {
   const [data, setData] = useState()
   const [stats, setStats] = useState()
+  const [filter, setFilter] = useState([])
   const token = Cookies.get("token")
 
   const router = useRouter()
@@ -66,6 +67,14 @@ export default function Achievements() {
 
   console.log("THIS IS DATA", data)
 
+  function handleCheckboxChange(category){
+    if (filter.includes(category)){
+      setFilter(filter.filter((c) => c !== category))
+    } else {
+      setFilter([...filter, category])
+    }
+  }
+
   // console.log("DATA", data)
 
   // console.log("DATA", data.length)
@@ -101,7 +110,12 @@ export default function Achievements() {
       <main className={styles2.mainBody}>
         {data &&
           <div className={styles2.content}>
-            {data.map((res, idx) => {
+            {data &&
+          <div className={styles2.content}>
+            {data.filter((res) => ( filter.length === 0 || 
+              filter.includes(res.category)
+            )).map((res, idx) => {
+              console.log("THIS IS RES", res)
               return (
                 <div className={styles2.achievement} key={idx}>
                   <h3 className={styles2.achievementName}> {res.name} </h3>
@@ -119,28 +133,29 @@ export default function Achievements() {
             })}
           </div>
         }
+          </div>
+        }
         <div className="div_filter">
           <div className={styles2.filter}>
             <h3 className="text-white">Filter</h3>
-            <div className="form-check">
+            {/* <div className="form-check">
               <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                1 filter
+                Completed
+              </label>
+            </div> */}
+            <div className="form-check">
+              <input onClick={() => handleCheckboxChange(1)} className="form-check-input" type="checkbox" id="flexCheckDefault" />
+              <label className="form-check-label text-white" htmlFor="flexCheckDefault">
+                Send
               </label>
             </div>
             <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
+              <input onClick={() => handleCheckboxChange(2)} className="form-check-input" type="checkbox" id="flexCheckDefault" />
               <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                2 filter
+                Delete
               </label>
             </div>
-            <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-              <label className="form-check-label text-white" htmlFor="flexCheckDefault">
-                3 filter
-              </label>
-            </div>
-
           </div>
         </div>
       </main>
