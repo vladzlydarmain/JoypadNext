@@ -37,7 +37,7 @@ This project taught us a little better how to organize team work, as well as how
 
 - **Vlad Zlydar**
 - [**Serhiy Vahnyuk**](https://github.com/SerhiyVahnyuk/)
-- **Roman Babai**
+- [**Roman Babai**](https://github.com/BabaiRoman/)
 - [**Daniil Makhno**](https://github.com/shrek0228/)
 
 ## Technologies
