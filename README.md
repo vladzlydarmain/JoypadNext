@@ -11,7 +11,7 @@ Joypad is a messenger application with integration for Steam and Dota 2. It allo
 ## Other dependencies/info
 
 - **API** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
-- **Mobile app** - [Github](https://github.com/vladzlydarmain/JoypadAPI)
+- **Mobile app** - [Github](https://github.com/vladzlydarmain/JoypadApp)
 - **Database/project structure** - [FigJam](https://www.figma.com/board/HXlA34jbAjDpTqBf6BoeUX/Untitled?node-id=0-1&t=c0rnb1M6bUEFZ10I-1)
 - **Figma project** - [Design](https://www.figma.com/design/GyNu2Fr2QDvOzELk8D71Yy/Untitled?node-id=818-114&t=pwG4RJ2PRSEnuZKo-1)
 - **Trello** - [Board](https://trello.com/b/KT1P2b6o/dpl-js-dev3)
